@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="testWinFormDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BILLS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USER_ID" Type="int" Nullable="false" />
+    <Property Name="TABLE_ID" Type="int" Nullable="false" />
+    <Property Name="DISH_LIST_ID" Type="int" Nullable="false" />
+    <Property Name="TOTAL_PRICE" Type="int" />
+  </EntityType>
+  <EntityType Name="DISH_LIST">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DISH_ID" Type="int" Nullable="false" />
+    <Property Name="DATE_ADDED" Type="datetime" />
+  </EntityType>
+  <EntityType Name="DISHES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="PRICE" Type="int" />
+  </EntityType>
+  <EntityType Name="ROLES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ROLE_NAME" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USERNAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="PASSWORD" Type="nvarchar(max)" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="SURNAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="ROLE_ID" Type="int" />
+  </EntityType>
+  <Association Name="FK_BILLS_USERS">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="BILLS" Type="Self.BILLS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BILLS">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DISH_LIST_DISHES">
+    <End Role="DISHES" Type="Self.DISHES" Multiplicity="1" />
+    <End Role="DISH_LIST" Type="Self.DISH_LIST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DISHES">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DISH_LIST">
+        <PropertyRef Name="DISH_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USERS_ROLES">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+    <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USERS">
+        <PropertyRef Name="ROLE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="testWinFormDBModelStoreContainer">
+    <EntitySet Name="BILLS" EntityType="Self.BILLS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DISH_LIST" EntityType="Self.DISH_LIST" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DISHES" EntityType="Self.DISHES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BILLS_USERS" Association="Self.FK_BILLS_USERS">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="BILLS" EntitySet="BILLS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DISH_LIST_DISHES" Association="Self.FK_DISH_LIST_DISHES">
+      <End Role="DISHES" EntitySet="DISHES" />
+      <End Role="DISH_LIST" EntitySet="DISH_LIST" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USERS_ROLES" Association="Self.FK_USERS_ROLES">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="USERS" EntitySet="USERS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

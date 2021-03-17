@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ust_qida" targetNamespace="http://tempuri.org/ust_qida.xsd" xmlns:mstns="http://tempuri.org/ust_qida.xsd" xmlns="http://tempuri.org/ust_qida.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="masa1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="masa1 (Settings)" PropertyReference="ApplicationSettings.Quasar1._0._1.Properties.Settings.GlobalReference.Default.masa1" Provider="System.Data.OleDb" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qida_elave_etTableAdapter" GeneratorDataComponentClassName="qida_elave_etTableAdapter" Name="qida_elave_et" UserDataComponentName="qida_elave_etTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="masa1 (Settings)" DbObjectName="qida_elave_et" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT qida_adi, qiymet FROM qida_elave_et</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="qida_adi" DataSetColumn="qida_adi" />
+              <Mapping SourceColumn="qiymet" DataSetColumn="qiymet" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="masa1 (Settings)" DbObjectName="qida_elave_et" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT        qida_adi, qiymet
+FROM            qida_elave_et
+WHERE        (alt_qida = 'false')</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ust_qida" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ust_qida" msprop:Generator_UserDSName="ust_qida">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="qida_elave_et" msprop:Generator_TableClassName="qida_elave_etDataTable" msprop:Generator_TableVarName="tableqida_elave_et" msprop:Generator_RowChangedName="qida_elave_etRowChanged" msprop:Generator_TablePropName="qida_elave_et" msprop:Generator_RowDeletingName="qida_elave_etRowDeleting" msprop:Generator_RowChangingName="qida_elave_etRowChanging" msprop:Generator_RowEvHandlerName="qida_elave_etRowChangeEventHandler" msprop:Generator_RowDeletedName="qida_elave_etRowDeleted" msprop:Generator_RowClassName="qida_elave_etRow" msprop:Generator_UserTableName="qida_elave_et" msprop:Generator_RowEvArgName="qida_elave_etRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="qida_adi" msprop:Generator_ColumnVarNameInTable="columnqida_adi" msprop:Generator_ColumnPropNameInRow="qida_adi" msprop:Generator_ColumnPropNameInTable="qida_adiColumn" msprop:Generator_UserColumnName="qida_adi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="qiymet" msprop:Generator_ColumnVarNameInTable="columnqiymet" msprop:Generator_ColumnPropNameInRow="qiymet" msprop:Generator_ColumnPropNameInTable="qiymetColumn" msprop:Generator_UserColumnName="qiymet" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:qida_elave_et" />
+      <xs:field xpath="mstns:qida_adi" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="testWinFormDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BILLS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="int" Nullable="false" />
+          <Property Name="TABLE_ID" Type="int" Nullable="false" />
+          <Property Name="DISH_LIST_ID" Type="int" Nullable="false" />
+          <Property Name="TOTAL_PRICE" Type="int" />
+        </EntityType>
+        <EntityType Name="DISH_LIST">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DISH_ID" Type="int" Nullable="false" />
+          <Property Name="DATE_ADDED" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DISHES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="PRICE" Type="int" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ROLE_NAME" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="nvarchar(max)" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="SURNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="ROLE_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK_BILLS_USERS">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="BILLS" Type="Self.BILLS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILLS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISH_LIST_DISHES">
+          <End Role="DISHES" Type="Self.DISHES" Multiplicity="1" />
+          <End Role="DISH_LIST" Type="Self.DISH_LIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISHES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DISH_LIST">
+              <PropertyRef Name="DISH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERS_ROLES">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="ROLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="testWinFormDBModelStoreContainer">
+          <EntitySet Name="BILLS" EntityType="Self.BILLS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DISH_LIST" EntityType="Self.DISH_LIST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DISHES" EntityType="Self.DISHES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BILLS_USERS" Association="Self.FK_BILLS_USERS">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="BILLS" EntitySet="BILLS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISH_LIST_DISHES" Association="Self.FK_DISH_LIST_DISHES">
+            <End Role="DISHES" EntitySet="DISHES" />
+            <End Role="DISH_LIST" EntitySet="DISH_LIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERS_ROLES" Association="Self.FK_USERS_ROLES">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="testWinFormDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BILLS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="Int32" Nullable="false" />
+          <Property Name="TABLE_ID" Type="Int32" Nullable="false" />
+          <Property Name="DISH_LIST_ID" Type="Int32" Nullable="false" />
+          <Property Name="TOTAL_PRICE" Type="Int32" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK_BILLS_USERS" FromRole="BILLS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="DISH_LIST">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DISH_ID" Type="Int32" Nullable="false" />
+          <Property Name="DATE_ADDED" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DISHES" Relationship="Self.FK_DISH_LIST_DISHES" FromRole="DISH_LIST" ToRole="DISHES" />
+        </EntityType>
+        <EntityType Name="DISHES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRICE" Type="Int32" />
+          <NavigationProperty Name="DISH_LIST" Relationship="Self.FK_DISH_LIST_DISHES" FromRole="DISHES" ToRole="DISH_LIST" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ROLE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK_USERS_ROLES" FromRole="ROLES" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SURNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ROLE_ID" Type="Int32" />
+          <NavigationProperty Name="BILLS" Relationship="Self.FK_BILLS_USERS" FromRole="USERS" ToRole="BILLS" />
+          <NavigationProperty Name="ROLES" Relationship="Self.FK_USERS_ROLES" FromRole="USERS" ToRole="ROLES" />
+        </EntityType>
+        <Association Name="FK_BILLS_USERS">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="BILLS" Type="Self.BILLS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILLS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISH_LIST_DISHES">
+          <End Role="DISHES" Type="Self.DISHES" Multiplicity="1" />
+          <End Role="DISH_LIST" Type="Self.DISH_LIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISHES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DISH_LIST">
+              <PropertyRef Name="DISH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERS_ROLES">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="ROLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="testWinFormDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BILLS" EntityType="Self.BILLS" />
+          <EntitySet Name="DISH_LIST" EntityType="Self.DISH_LIST" />
+          <EntitySet Name="DISHES" EntityType="Self.DISHES" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" />
+          <AssociationSet Name="FK_BILLS_USERS" Association="Self.FK_BILLS_USERS">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="BILLS" EntitySet="BILLS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISH_LIST_DISHES" Association="Self.FK_DISH_LIST_DISHES">
+            <End Role="DISHES" EntitySet="DISHES" />
+            <End Role="DISH_LIST" EntitySet="DISH_LIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERS_ROLES" Association="Self.FK_USERS_ROLES">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="testWinFormDBModelStoreContainer" CdmEntityContainer="testWinFormDBEntities">
+          <EntitySetMapping Name="BILLS">
+            <EntityTypeMapping TypeName="testWinFormDBModel.BILLS">
+              <MappingFragment StoreEntitySet="BILLS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="TABLE_ID" ColumnName="TABLE_ID" />
+                <ScalarProperty Name="DISH_LIST_ID" ColumnName="DISH_LIST_ID" />
+                <ScalarProperty Name="TOTAL_PRICE" ColumnName="TOTAL_PRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DISH_LIST">
+            <EntityTypeMapping TypeName="testWinFormDBModel.DISH_LIST">
+              <MappingFragment StoreEntitySet="DISH_LIST">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DISH_ID" ColumnName="DISH_ID" />
+                <ScalarProperty Name="DATE_ADDED" ColumnName="DATE_ADDED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DISHES">
+            <EntityTypeMapping TypeName="testWinFormDBModel.DISHES">
+              <MappingFragment StoreEntitySet="DISHES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLES">
+            <EntityTypeMapping TypeName="testWinFormDBModel.ROLES">
+              <MappingFragment StoreEntitySet="ROLES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ROLE_NAME" ColumnName="ROLE_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="testWinFormDBModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

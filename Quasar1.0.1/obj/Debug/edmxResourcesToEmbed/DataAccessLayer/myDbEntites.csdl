@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="testWinFormDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BILLS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USER_ID" Type="Int32" Nullable="false" />
+    <Property Name="TABLE_ID" Type="Int32" Nullable="false" />
+    <Property Name="DISH_LIST_ID" Type="Int32" Nullable="false" />
+    <Property Name="TOTAL_PRICE" Type="Int32" />
+    <NavigationProperty Name="USERS" Relationship="Self.FK_BILLS_USERS" FromRole="BILLS" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="DISH_LIST">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DISH_ID" Type="Int32" Nullable="false" />
+    <Property Name="DATE_ADDED" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="DISHES" Relationship="Self.FK_DISH_LIST_DISHES" FromRole="DISH_LIST" ToRole="DISHES" />
+  </EntityType>
+  <EntityType Name="DISHES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PRICE" Type="Int32" />
+    <NavigationProperty Name="DISH_LIST" Relationship="Self.FK_DISH_LIST_DISHES" FromRole="DISHES" ToRole="DISH_LIST" />
+  </EntityType>
+  <EntityType Name="ROLES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ROLE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="USERS" Relationship="Self.FK_USERS_ROLES" FromRole="ROLES" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SURNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ROLE_ID" Type="Int32" />
+    <NavigationProperty Name="BILLS" Relationship="Self.FK_BILLS_USERS" FromRole="USERS" ToRole="BILLS" />
+    <NavigationProperty Name="ROLES" Relationship="Self.FK_USERS_ROLES" FromRole="USERS" ToRole="ROLES" />
+  </EntityType>
+  <Association Name="FK_BILLS_USERS">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="BILLS" Type="Self.BILLS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BILLS">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DISH_LIST_DISHES">
+    <End Role="DISHES" Type="Self.DISHES" Multiplicity="1" />
+    <End Role="DISH_LIST" Type="Self.DISH_LIST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DISHES">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DISH_LIST">
+        <PropertyRef Name="DISH_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USERS_ROLES">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+    <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USERS">
+        <PropertyRef Name="ROLE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="testWinFormDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BILLS" EntityType="Self.BILLS" />
+    <EntitySet Name="DISH_LIST" EntityType="Self.DISH_LIST" />
+    <EntitySet Name="DISHES" EntityType="Self.DISHES" />
+    <EntitySet Name="ROLES" EntityType="Self.ROLES" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" />
+    <AssociationSet Name="FK_BILLS_USERS" Association="Self.FK_BILLS_USERS">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="BILLS" EntitySet="BILLS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DISH_LIST_DISHES" Association="Self.FK_DISH_LIST_DISHES">
+      <End Role="DISHES" EntitySet="DISHES" />
+      <End Role="DISH_LIST" EntitySet="DISH_LIST" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USERS_ROLES" Association="Self.FK_USERS_ROLES">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="USERS" EntitySet="USERS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
